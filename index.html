@@ -1,15 +1,393 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Title</title>
+    <script src='./js/jquery-2.2.2.js'></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .content {
+            width: 500px;
+            margin: 0 auto;
+            height: 800px;
+            background-color: #000000;
+        }
+
+        .content div {
+            width: 50px;
+            height: 50px;
+            box-sizing: border-box;
+            float: left;
+        }
+
+        .orange {
+            background-color: orange;
+            border: 1px solid white;
+        }
+
+        .yellow {
+            background-color: yellow;
+            border: 1px solid white;
+        }
+
+        .red {
+            background-color: red;
+            border: 1px solid white;
+        }
+
+        .green {
+            background-color: lawngreen;
+            border: 1px solid white;
+        }
+
+        .blue {
+            border: 1px solid white;
+            background-color: deepskyblue;
+        }
+
+        .purple {
+            background-color: purple;
+            border: 1px solid white;
+        }
+
+        .pink {
+            background-color: pink;
+            border: 1px solid white;
+        }
+    </style>
 </head>
 <body>
-    <div class='tree'>
+<div class='content'>
 
-    </div>
+
+</div>
 </body>
 </html>
+<script>
+    $(function () {
+        var content = document.getElementsByClassName('content');
+        /*填充方块*/
+        var dlist = null;
+        for (var i = 0; i < 160; i++) {
+            dlist = document.createElement('div');
+            $(dlist).attr('index', i);
+            content[0].appendChild(dlist);
+        }
+        /*获取所有方块*/
+        var divlist = content[0].children;
+//        divlist[153].className='blue';
+//        divlist[154].className='blue';
+//        divlist[155].className='blue';
+//        divlist[156].className='blue';
+
+        /*随机数*/
+        var ktemp = '';
+        var tetris = {
+            /*随机生成fn*/
+            creates: function (temp) {
+                createt[temp]();
+            },
+            /*移动fn*/
+            move: function (num) {
+                move[num]();
+            }
+        };
+        var move = {
+            lfet: function () {
+
+            },
+            right: function () {
+
+            },
+            down: function () {
+
+            }
+        }
+        var createt = {
+            0: function () {
+                y();
+            },
+            1: function () {
+                o();
+            },
+            2: function () {
+                red();
+            },
+            3: function () {
+                green();
+            },
+            4: function () {
+                blue();
+            },
+            5: function () {
+                purple();
+            },
+            6: function () {
+                pink();
+            }
+
+        };
+        var icon1 = null;
+        var icon2 = null;
+        var icon3 = null;
+        var icon4 = null;
+        /*随机生成*/
+        var temp = null;
+
+        function createtetris() {
+            temp = Math.floor(Math.random() * 7);
+            tetris.creates(temp);
+        }
+
+        /*获取控制下标*/
+        var colorname = '';
+        var timeout = true;
+        var qtemp = true;
+        var pai = 0;
+        var onc = false;
+        createtetris();
+        time();
+
+
+        function time() {
+            if (pai < 999) {
+                document.onkeydown = function (e) {
+                    vare = event || window.event || arguments.callee.caller.arguments[0];
+                    onc = true;
+                    if (e && e.keyCode == 37) {
+                        var controls;
+                        var controlsindex = 0;
+                        controls = [];
+                        for (var x = 0; x < divlist.length; x++) {
+                            if (divlist[x].className.split(' ')[1] == "control") {
+                                controls[controlsindex++] = divlist[x]
+                            }
+                        }
+
+                        icon1 = $(controls[0]).attr('index');
+                        icon2 = $(controls[1]).attr('index');
+                        icon3 = $(controls[2]).attr('index');
+                        icon4 = $(controls[3]).attr('index');
+                        divlist[icon1].className = '';
+                        divlist[icon2].className = '';
+                        divlist[icon3].className = '';
+                        divlist[icon4].className = '';
+                        divlist[+icon1 - 1].className = colorname;
+                        divlist[+icon2 - 1].className = colorname;
+                        divlist[+icon3 - 1].className = colorname;
+                        divlist[+icon4 - 1].className = colorname;
+                        onc = false;
+                    }
+
+                    if (e && e.keyCode == 39) {
+                        var controls;
+                        var controlsindex = 0;
+                        controls = [];
+                        for (var x = 0; x < divlist.length; x++) {
+                            if (divlist[x].className.split(' ')[1] == "control") {
+                                controls[controlsindex++] = divlist[x]
+                            }
+                        }
+
+                        icon1 = $(controls[0]).attr('index');
+                        icon2 = $(controls[1]).attr('index');
+                        icon3 = $(controls[2]).attr('index');
+                        icon4 = $(controls[3]).attr('index');
+                        divlist[icon1].className = '';
+                        divlist[icon2].className = '';
+                        divlist[icon3].className = '';
+                        divlist[icon4].className = '';
+                        divlist[+icon1 + 1].className = colorname;
+                        divlist[+icon2 + 1].className = colorname;
+                        divlist[+icon3 + 1].className = colorname;
+                        divlist[+icon4 + 1].className = colorname;
+                        onc = false;
+                    }
+                    if (e && e.keyCode == 40) {
+                        var controls;
+                        var controlsindex = 0;
+                        controls = [];
+                        for (var x = 0; x < divlist.length; x++) {
+                            if (divlist[x].className.split(' ')[1] == "control") {
+                                controls[controlsindex++] = divlist[x]
+                            }
+                        }
+
+                        icon1 = $(controls[0]).attr('index');
+                        icon2 = $(controls[1]).attr('index');
+                        icon3 = $(controls[2]).attr('index');
+                        icon4 = $(controls[3]).attr('index');
+                        divlist[icon1].className = '';
+                        divlist[icon2].className = '';
+                        divlist[icon3].className = '';
+                        divlist[icon4].className = '';
+                        divlist[+icon1 + 10].className = colorname;
+                        divlist[+icon2 + 10].className = colorname;
+                        divlist[+icon3 + 10].className = colorname;
+                        divlist[+icon4 + 10].className = colorname;
+                        onc = false;
+                    }
+                }
+                if (timeout) {
+                    out();
+                    if (qtemp) {
+                        setTimeout(time, 1000)
+                    } else if (!qtemp) {
+                        pai++;
+                        createtetris();
+                        time();
+                    }
+                }
+            }
+        }
+
+
+        function out() {
+            if (onc) {
+                return;
+            }
+            qtemp = true;
+            var controls;
+            var controlsindex = 0;
+            controls = [];
+            for (var x = 0; x < divlist.length; x++) {
+                if (divlist[x].className.split(' ')[1] == "control") {
+                    controls[controlsindex++] = divlist[x];
+                }
+            }
+
+            icon1 = $(controls[0]).attr('index');
+            icon2 = $(controls[1]).attr('index');
+            icon3 = $(controls[2]).attr('index');
+            icon4 = $(controls[3]).attr('index');
+
+            if (icon4 > 150) {
+                for (var i = 0; i < divlist.length; i++) {
+                    if (divlist[i].className.split(' ')[1] == "control") {
+                        divlist[i].className = divlist[i].className.split(' ')[0];
+                    }
+                }
+                qtemp = false;
+                return;
+            }
+            /* 橘色 蓝色 紫色*/
+            if (temp == 1 || temp == 4 || temp == 5) {
+                if (divlist[+icon2 + 10].className.split(' ')[0] || divlist[+icon3 + 10].className.split(' ')[0] || divlist[+icon4 + 10].className.split(' ')[0]) {
+                    for (var i = 0; i < divlist.length; i++) {
+                        if (divlist[i].className.split(' ')[1] == "control") {
+                            divlist[i].className = divlist[i].className.split(' ')[0];
+                        }
+                    }
+                    qtemp = false;
+                    return;
+                }
+            } else if (temp == 6) {
+                if (divlist[+icon1 + 10].className.split(' ')[0] || divlist[+icon2 + 10].className.split(' ')[0] || divlist[+icon3 + 10].className.split(' ')[0] || divlist[+icon4 + 10].className.split(' ')[0]) {
+                    for (var i = 0; i < divlist.length; i++) {
+                        if (divlist[i].className.split(' ')[1] == "control") {
+                            divlist[i].className = divlist[i].className.split(' ')[0];
+                        }
+                    }
+                    qtemp = false;
+                    return;
+                }
+            }
+            else if (temp == 0) {
+                if (divlist[+icon3 + 10].className.split(' ')[0] || divlist[+icon4 + 10].className.split(' ')[0]) {
+                    for (var i = 0; i < divlist.length; i++) {
+                        if (divlist[i].className.split(' ')[1] == "control") {
+                            divlist[i].className = divlist[i].className.split(' ')[0];
+                        }
+                    }
+                    qtemp = false;
+                    return;
+                }
+            } else if (temp == 2) {
+                if (divlist[+icon1 + 10].className.split(' ')[0] || divlist[+icon3 + 10].className.split(' ')[0] || divlist[+icon4 + 10].className.split(' ')[0]) {
+                    for (var i = 0; i < divlist.length; i++) {
+                        if (divlist[i].className.split(' ')[1] == "control") {
+                            divlist[i].className = divlist[i].className.split(' ')[0];
+                        }
+                    }
+                    qtemp = false;
+                    return;
+                }
+            } else if (temp == 3) {
+                if (divlist[+icon2 + 10].className.split(' ')[0] || divlist[+icon3 + 10].className.split(' ')[0] || divlist[+icon4 + 10].className.split(' ')[0]) {
+                    for (var i = 0; i < divlist.length; i++) {
+                        if (divlist[i].className.split(' ')[1] == "control") {
+                            divlist[i].className = divlist[i].className.split(' ')[0];
+                        }
+                    }
+                    qtemp = false;
+                    return;
+                }
+            }
+            colorname = divlist[icon1].className;
+            divlist[icon1].className = '';
+            divlist[icon2].className = '';
+            divlist[icon3].className = '';
+            divlist[icon4].className = '';
+            divlist[+icon1 + 10].className = colorname;
+            divlist[+icon2 + 10].className = colorname;
+            divlist[+icon3 + 10].className = colorname;
+            divlist[+icon4 + 10].className = colorname;
+
+        }
+
+
+        function y() {
+            divlist[4].className = 'yellow control';
+            divlist[5].className = 'yellow control';
+            divlist[14].className = 'yellow control';
+            divlist[15].className = 'yellow control';
+
+        }
+
+        function o() {
+            divlist[6].className = 'orange control';
+            divlist[16].className = 'orange control';
+            divlist[15].className = 'orange control';
+            divlist[14].className = 'orange control';
+        }
+
+        function red() {
+            divlist[5].className = 'red control';
+            divlist[4].className = 'red control';
+            divlist[15].className = 'red control';
+            divlist[16].className = 'red control';
+        }
+
+        function green() {
+            divlist[4].className = 'green control';
+            divlist[5].className = 'green control';
+            divlist[14].className = 'green control';
+            divlist[13].className = 'green control';
+        }
+
+        function blue() {
+            divlist[3].className = 'blue control';
+            divlist[13].className = 'blue control';
+            divlist[14].className = 'blue control';
+            divlist[15].className = 'blue control';
+        }
+
+        function purple() {
+            divlist[5].className = 'purple control';
+            divlist[15].className = 'purple control';
+            divlist[16].className = 'purple control';
+            divlist[14].className = 'purple control';
+        }
+
+        function pink() {
+            divlist[3].className = 'pink control';
+            divlist[4].className = 'pink control';
+            divlist[5].className = 'pink control';
+            divlist[6].className = 'pink control';
+        }
+    })
+
+</script>
